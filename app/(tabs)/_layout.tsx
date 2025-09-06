@@ -1,45 +1,95 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { View, Image, Text } from "react-native";
+import React from "react";
+import { Tabs } from "expo-router";
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+const HomeIcon = require("@/asset/Home.png"); 
+const TradeIcon = require("@/asset/Trade.png"); 
+const ReferralIcon = require("@/asset/Referral.png"); 
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+const layout = () => {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
+        tabBarStyle: {
+          backgroundColor: "#0D161F",
+          borderTopWidth: 0,
+          height: 70,
+          marginHorizontal: 20,
+          marginBottom: 20,
+          borderRadius: 35, 
+          paddingHorizontal: 15,
+          position: "absolute", 
+          elevation: 5, 
+          shadowColor: "#000", 
+          shadowOpacity: 0.2,
+          shadowOffset: { width: 0, height: 5 },
+          shadowRadius: 10,
+        },
+        tabBarActiveTintColor: "#FFFFFF",
+        tabBarInactiveTintColor: "#666A72",
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "bold",
+        },
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="trade"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "My Trade",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={TradeIcon}
+              style={{
+                width: 20,
+                height: 20,
+                tintColor: focused ? "#FFFFFF" : "#666A72",
+              }}
+            />
+          ),
         }}
       />
-      <Tabs.Screen
-        name="explore"
+
+   
+
+<Tabs.Screen
+        name="index"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Home",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={HomeIcon}
+              style={{
+                width: 20,
+                height: 20,
+                tintColor: focused ? "#FFFFFF" : "#666A72",
+              }}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="referral"
+        options={{
+          title: "Referral",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={ReferralIcon}
+              style={{
+                width: 20,
+                height: 20,
+                tintColor: focused ? "#FFFFFF" : "#666A72",
+              }}
+            />
+          ),
         }}
       />
     </Tabs>
   );
-}
+};
+
+export default layout;
